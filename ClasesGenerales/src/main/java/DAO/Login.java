@@ -69,45 +69,6 @@ public class Login {
 
     }
 
-    
-    
-    
-   public boolean LoguinEstudiante(String usuario, String Pass) {
-        ArrayList<Estudiante> ListaUsuariosPass = new ArrayList<>();
-        try {
-            CallableStatement Statement = conexion.prepareCall("call SP_S_LOGUIESTUDIANTE(?,?)");
-            Statement.setString("pusuario", usuario);
-            Statement.setString("ppass", Pass);
-            ResultSet resultadoDeConsulta = Statement.executeQuery();
-            while (resultadoDeConsulta.next()) {
-                Estudiante es = new Estudiante();
-                es.setUser(resultadoDeConsulta.getString("Usuario"));
-                es.setPassword(resultadoDeConsulta.getString("Contra"));
-                ListaUsuariosPass.add(es);
-            }
-            String usuariodebasedatos = null;
-            String passsdebasedados = null;
-            for (var iterador : ListaUsuariosPass) {
-                usuariodebasedatos = iterador.getUser();
-                passsdebasedados = iterador.getPassword();
-            }
-
-            if (usuariodebasedatos.equals(usuario) && passsdebasedados.equals(Pass)) {
-                return true;
-
-            }
-
-            conexion.close();
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-        return false;
-    }
-
-   
-   //PRUEBA TUTO
-   
    
     int confirmation = 0;
     
