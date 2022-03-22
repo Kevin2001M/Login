@@ -9,6 +9,7 @@ import DAO.Login;
 import DAO.Notas;
 import Entidades.Estudiante;
 import Entidades.Nota;
+import Seguridad.Encrypt;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,11 +20,15 @@ public class Log extends javax.swing.JFrame {
 //    public Menu menu;
 //    public Log login;
 
+    Menu m = new Menu();
+
     /**
      * Creates new form Log
      */
     public Log() {
         initComponents();
+        this.setLocationRelativeTo(null);
+
     }
 
     /**
@@ -57,13 +62,15 @@ public class Log extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel2.setText("Password");
 
-        jLabel3.setFont(new java.awt.Font("Rockwell", 1, 18)); // NOI18N
+        jLabel3.setBackground(new java.awt.Color(153, 153, 153));
+        jLabel3.setFont(new java.awt.Font("Rockwell", 1, 24)); // NOI18N
         jLabel3.setText("LOGIN");
 
         btnAgregar.setBackground(java.awt.Color.blue);
         btnAgregar.setFont(new java.awt.Font("Roboto Bk", 0, 14)); // NOI18N
         btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregar.setText("AGREGAR");
+        btnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarActionPerformed(evt);
@@ -74,6 +81,7 @@ public class Log extends javax.swing.JFrame {
         btnEntrar.setFont(new java.awt.Font("Roboto Bk", 1, 14)); // NOI18N
         btnEntrar.setForeground(new java.awt.Color(255, 255, 255));
         btnEntrar.setText("ENTRAR");
+        btnEntrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEntrar.setMaximumSize(new java.awt.Dimension(95, 25));
         btnEntrar.setMinimumSize(new java.awt.Dimension(95, 25));
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
@@ -87,28 +95,29 @@ public class Log extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(155, 155, 155)
-                .addComponent(jLabel3)
-                .addContainerGap(182, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(74, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
-                    .addComponent(txtUser, javax.swing.GroupLayout.Alignment.LEADING))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(31, 31, 31)
+                        .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel1)
+                        .addComponent(txtUser, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+                        .addComponent(txtPassword)))
+                .addContainerGap(75, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(146, 146, 146))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel3)
-                .addGap(35, 35, 35)
+                .addGap(36, 36, 36)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -116,11 +125,11 @@ public class Log extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEntrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGap(18, 27, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
@@ -130,43 +139,57 @@ public class Log extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUserActionPerformed
 
+    public void Limpiar() {
+
+        txtUser.setText("");
+        txtPassword.setText("");
+
+    }
+
+
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-
-//        Estudiante es = new Estudiante();
-//        Login esDao = new Login();
-//
-//        int acceso = 0;
-//        if (es.getUser().equals("Kevin") && es.getPassword().equals("123")) {
-//            acceso = 1;
-//            JOptionPane.showMessageDialog(null, "Correcto");
-//        }
-//
-//        esDao.AddUser(es);
-    }//GEN-LAST:event_btnAgregarActionPerformed
-
-    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        Login est = new Login();
-        Log login = new Log();
-        Menu frmMenu = new Menu();
-        String user = txtUser.getText();
-        String pass = txtPassword.getText();
-
-        // String pass = new String(txtPassword.getPassword());
-        var variablecontedoradeconsultabd = est.LoguinEstudiante(user, pass);
 
         if (txtUser.getText().equals("") || txtPassword.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "HAY CAMPOS VACIOS");
+            txtUser.requestFocus();
         } else {
 
-            if (variablecontedoradeconsultabd == true) {
-                JOptionPane.showMessageDialog(null, "Bienvenido " + txtUser.getText());
-                Menu abrir = new Menu();
-                abrir.setVisible(true);
-                this.setVisible(false);
-                
-                
+            Estudiante es = new Estudiante();
+            Login esDao = new Login();
+
+            es.setUser(txtUser.getText());
+            es.setPassword(txtPassword.getText());
+            esDao.AddUser(es);
+            Limpiar();
+        }
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
+
+        Estudiante es = new Estudiante();
+        Login log = new Login();
+
+        if (txtUser.getText().equals("") || txtPassword.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Llenar todos los campos");
+            txtUser.requestFocus();
+        } else {
+            String user = txtUser.getText();
+            String passEncrypt = Encrypt.Encrypt(String.valueOf(txtPassword.getPassword()));
+
+            es.setUser(user);
+            es.setPassword(passEncrypt);
+
+            int valid = log.Acces(es);
+
+            if (valid == 1) {
+                JOptionPane.showMessageDialog(null, "Bienvenid@ " + txtUser.getText());
+                m.setVisible(true);
+                this.dispose();
             } else {
-                JOptionPane.showMessageDialog(null, "No se encuentra este usuario");
+
+                JOptionPane.showMessageDialog(null, "Usuario no encontrado");
+                Limpiar();
+                txtUser.requestFocus();
             }
         }
     }//GEN-LAST:event_btnEntrarActionPerformed

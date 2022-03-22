@@ -24,6 +24,8 @@ public class Login {
 
     ConexionAMYSQL con = new ConexionAMYSQL();
     Connection conexion = con.getConecction();
+    
+    public boolean c = false;
 
     public ArrayList<LoginVM> ListUser(String User, String Password) {
         ArrayList<LoginVM> listado = null;
@@ -59,7 +61,7 @@ public class Login {
             cb.setString("PPassword", es.getPassword());
             cb.execute();
 
-            JOptionPane.showMessageDialog(null, "Persona Agregada", "Mensaje sistems", 1);
+            JOptionPane.showMessageDialog(null, "Usuario Agregado", "Mensaje sistems", 1);
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error" + ex.toString(), "Mensaje sistems", 1);
@@ -103,4 +105,38 @@ public class Login {
         return false;
     }
 
+   
+   //PRUEBA TUTO
+   
+   
+    int confirmation = 0;
+    
+    
+    public int Acces(Estudiante st){
+        
+        String sqlQuery = "{call clase.SP_S_LOGUIESTUDIANTE(?,?)}";
+        
+        try {
+            
+            CallableStatement cs = conexion.prepareCall(sqlQuery);
+            cs.setString("pusuario", st.getUser());
+            cs.setString("ppass", st.getPassword());
+            ResultSet rs = cs.executeQuery();
+            
+            if (rs.next()) {
+                
+                confirmation = 1;
+                
+                return confirmation;
+            }
+            
+        } catch (Exception ex) {
+            
+            JOptionPane.showMessageDialog(null, "Error" + ex.toString());
+        }
+        
+        return confirmation;
+    }
+   
+   
 }
